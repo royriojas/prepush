@@ -1,6 +1,6 @@
 {
   "name": "prepush",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yet another prepush script that will run tasks defined in a config file",
   "main": "lib/hook.js",
   "scripts": {
@@ -16,9 +16,9 @@
     "npm run prepush"
   ],
   "bin": {
-    "esbeautifier": "./bin/esbeautifier.js"
+    "prepush": "./bin/prepush.js"
   },
-  "repository": "royriojas/esbeautifier",
+  "repository": "royriojas/prepush",
   "license": "MIT",
   "author": {
     "name": "Roy Riojas",
