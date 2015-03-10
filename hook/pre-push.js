@@ -39,6 +39,11 @@ var exec = function ( cmd ) {
   } );
 };
 
+var fs = require( 'fs' );
+var readJSON = function ( filePath, options ) {
+  return JSON.parse( String( fs.readFileSync( filePath, options ) ).replace( /^\ufeff/g, '' ) );
+};
+
 var main = function () {
   var opts = require( 'prepush-config' );
 
@@ -46,7 +51,13 @@ var main = function () {
 
   console.log( '>>> prepush hook start' );
 
-  var tasks = opts.prepush || [];
+  var config = readJSON( opts.configFile );
+
+  var tasks = config.prepush || [];
+
+  if ( tasks.length === 0 ) {
+    console.error( '>>> no prepush tasks specified on file', opts.configFile );
+  }
 
   var p = tasks.reduce( function ( seq, current ) {
     return seq.then( function () {

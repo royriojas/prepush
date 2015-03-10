@@ -52,11 +52,11 @@ Options:
 
 ```bash
 # install the hook and use the package.json prepush field 
-prepush install 
+./node_modules/prepush/bin/prepush.js install 
 
 # install the hook using a custom prepush.json file
-prepush install -c ./path/to/prepush.json
+./node_modules/prepush/bin/prepush.js install -c ./path/to/prepush.json
 
 # remove the hook
-prepush remove
+./node_modules/prepush/bin/prepush.js remove
 ```
