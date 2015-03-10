@@ -7,8 +7,8 @@
     "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
     "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' lib/ bin/ hook/ -c './configs/eslint.json'",
     "test": "mocha-runner 'specs/**/*.js'",
-    "cover": "istanbul cover -x specs/**/*.js mocha-runner 'specs/**/*.js' html text-summary",
-    "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p ' npm run cover",
+    "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
+    "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'lib/**/*.js' -p 'hook/**/*.js' -p 'bin/**/*.js' npm run cover",
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run lint && npm test"
   },
@@ -24,23 +24,16 @@
     "name": "Roy Riojas",
     "url": "http://royriojas.com"
   },
-  "peerDependencies": {
-    "es6-promise": "^2.0.1"
-  },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "chai-fuzzy": "^1.4.0",
     "eslint": "^0.16.1",
     "eslint-friendly-formatter": "^1.0.3",
     "istanbul": "^0.3.7",
-    "mocha": "^2.2.1",
-    "mocha-runner": "^1.0.2",
+    "mocha-runner": "^1.0.4",
     "proxyquire": "^1.4.0",
-    "sinon": "^1.13.0",
-    "sinon-chai": "^2.7.0",
     "watch-spawn": "^1.0.3"
   },
   "dependencies": {
+    "es6-promise": "^2.0.1",
     "del": "^1.1.1",
     "lodash.trim": "^3.0.1",
     "optionator": "^0.5.0",

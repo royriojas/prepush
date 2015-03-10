@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Promise = require( 'es6-promise' ).Promise;
+var Promise = require( 'prepush/lib/promise' );
 var nodeProcess = require( 'process' );
 
 var exec = function ( cmd ) {

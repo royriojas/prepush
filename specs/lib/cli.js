@@ -6,7 +6,7 @@ describe('cli', function () {
     var mockConsole = me.sandbox.createSpyObj('console', ['error']);
     var processMock = me.sandbox.createSpyObj('process', ['exit']);
 
-    proxyquire('../bin/prepush.js', {
+    proxyquire('../../bin/prepush.js', {
       '../lib/process': processMock,
       '../lib/console': mockConsole,
       '../lib/cli': {
