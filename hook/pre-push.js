@@ -1,7 +1,21 @@
 #!/usr/bin/env node
 
-var Promise = require( 'prepush/lib/promise' );
 var nodeProcess = require( 'process' );
+
+var Promise = ( function () {
+  var _Promise;
+
+  try {
+    _Promise = require( 'prepush/lib/promise' );
+  } catch (ex) {
+      try {
+          _Promise = require( 'es6-promise' ).Promise;
+      } catch (err) {
+              console.error( '>> could not execute the prepush missing `Promise` module. try running `npm i -D es6-promise`' );
+      }
+  }
+  return _Promise;
+}());
 
 var exec = function ( cmd ) {
 

@@ -11,20 +11,16 @@
 All the other modules similar to this one were specifying the prepush tasks in the `package.json` file. While this is ok
 I needed to have it defined in a separated config file.
 
-### What to do if the command to execute does not exists
-
-We have the requirement that if a developer didn't have the given command, not to fail, but warn the user and let him
-proceed without the command.
-
 ## Install
 
 ```bash
-# install it as a dev-dependency. This will also install es6-promise and inquirer
+# install it as a dev-dependency.
 npm i --save-dev prepush
 
 # install the hook, passing the path to the config. If none is provided it will try to use the `package.json`
 ./node_modules/prepush/bin/prepush.js install -c ./path/to/your/config
 ```
+
 
 Using a custom prepush.json 
 

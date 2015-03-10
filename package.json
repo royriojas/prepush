@@ -33,8 +33,9 @@
     "watch-spawn": "^1.0.3"
   },
   "dependencies": {
-    "es6-promise": "^2.0.1",
+    "chalk": "^1.0.0",
     "del": "^1.1.1",
+    "es6-promise": "^2.0.1",
     "lodash.trim": "^3.0.1",
     "optionator": "^0.5.0",
     "read-file": "^0.1.2",

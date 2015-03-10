@@ -1,7 +1,7 @@
 describe('git-dir', function () {
   var proxyquire = require('proxyquire').noCallThru().noPreserveCache();
 
-  it('should execute the command to get the top level git directory', function () {
+  it('should execute the command to get the top level git directory', function (done) {
     var me = this;
     var childProcessMock = me.sandbox.createSpyObj('cp', ['exec']);
 
@@ -15,6 +15,10 @@ describe('git-dir', function () {
 
     childProcessMock.exec.callArgWith(1, null, '/some/path/');
 
-    expect(resSpy).to.have.been.calledWith('/some/path/');
+    setTimeout(function () {
+      expect(resSpy).to.have.been.calledWith('/some/path/');
+      done();
+    }, 0);
+
   });
 });
