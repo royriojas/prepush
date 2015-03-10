@@ -1,0 +1,57 @@
+{
+  "name": "prepush",
+  "version": "1.0.0",
+  "description": "Yet another prepush script that will run tasks defined in a config file",
+  "main": "lib/hook.js",
+  "scripts": {
+    "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
+    "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' lib/ bin/ hook/ -c './configs/eslint.json'",
+    "test": "mocha-runner 'specs/**/*.js'",
+    "cover": "istanbul cover -x specs/**/*.js mocha-runner 'specs/**/*.js' html text-summary",
+    "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p ' npm run cover",
+    "jscs": "jscs lib/ bin/ hook/ --config='./configs/jscs.json'",
+    "lint": "npm run beautify && npm run eslint && npm run jscs"
+  },
+  "bin": {
+    "esbeautifier": "./bin/esbeautifier.js"
+  },
+  "repository": "royriojas/esbeautifier",
+  "license": "MIT",
+  "author": {
+    "name": "Roy Riojas",
+    "url": "http://royriojas.com"
+  },
+  "peerDependencies": {
+    "esformatter-eol-last": "^1.0.0",
+    "esformatter-quotes": "^1.0.0",
+    "esformatter-shebang-ignore": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "chai-fuzzy": "^1.4.0",
+    "eslint": "^0.16.1",
+    "eslint-friendly-formatter": "^1.0.3",
+    "istanbul": "^0.3.7",
+    "jscs": "^1.11.3",
+    "mocha": "^2.2.1",
+    "mocha-runner": "^1.0.1",
+    "proxyquire": "^1.4.0",
+    "sinon": "^1.13.0",
+    "sinon-chai": "^2.7.0",
+    "watch-spawn": "^1.0.3"
+  },
+  "dependencies": {
+    "del": "^1.1.1",
+    "dispatchy": "^1.0.1",
+    "es6-promise": "^2.0.1",
+    "esformatter": "^0.5.0",
+    "glob-expand": "0.0.2",
+    "lodash.merge": "^3.0.3",
+    "lodash.trim": "^3.0.1",
+    "optionator": "^0.5.0",
+    "read-file": "^0.1.2",
+    "read-json-sync": "^1.1.0",
+    "stringformat": "0.0.5",
+    "write": "^0.1.1"
+  }
+}
