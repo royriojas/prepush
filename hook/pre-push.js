@@ -38,13 +38,15 @@ var main = function () {
     return seq.then( function () {
       return exec( current );
     } );
-  }, Promise.resolve );
+  }, Promise.resolve() );
 
   p.then( function () {
-    console.log( '>>> prepush hook finished' );
+    console.log( '>>> prepush hook finished. Everything is Ok' );
   } );
+
   p.catch( function ( err ) {
     if ( err ) {
+      console.error( '>> prepush check failed. Stopping push' );
       nodeProcess.exit( err );
     }
   } );
