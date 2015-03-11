@@ -1,6 +1,6 @@
 {
   "name": "prepush",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Yet another prepush script that will run tasks defined in a config file",
   "main": "lib/hook.js",
   "scripts": {
@@ -18,12 +18,12 @@
   "bin": {
     "prepush": "./bin/prepush.js"
   },
-  "repository": "royriojas/prepush",
-  "license": "MIT",
-  "author": {
-    "name": "Roy Riojas",
-    "url": "http://royriojas.com"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/royriojas/prepush"
   },
+  "license": "MIT",
+  "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
     "eslint": "^0.16.1",
     "eslint-friendly-formatter": "^1.0.3",
@@ -42,5 +42,18 @@
     "read-json-sync": "^1.1.0",
     "stringformat": "0.0.5",
     "write": "^0.1.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/royriojas/prepush/issues"
+  },
+  "homepage": "https://github.com/royriojas/prepush",
+  "keywords": [
+    "prepush",
+    "hooks",
+    "git",
+    "hooks",
+    "enforce",
+    "git",
+    "workflow"
+  ]
 }
