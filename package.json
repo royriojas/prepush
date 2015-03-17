@@ -5,12 +5,14 @@
   "main": "lib/hook.js",
   "scripts": {
     "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
+    "beautify-check": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
     "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' lib/ bin/ hook/ -c './configs/eslint.json'",
     "test": "mocha-runner 'specs/**/*.js'",
     "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
     "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'lib/**/*.js' -p 'hook/**/*.js' -p 'bin/**/*.js' npm run cover",
+    "check": "npm run beautify-check && npm run eslint",
     "lint": "npm run beautify && npm run eslint",
-    "prepush": "npm run lint && npm test"
+    "prepush": "npm run check && npm test"
   },
   "prepush": [
     "npm run prepush"
@@ -55,5 +57,12 @@
     "enforce",
     "git",
     "workflow"
-  ]
+  ],
+  "changelogx": {
+    "issueIDRegExp": "#(\\d+)",
+    "commitURL": "https://github.com/royriojas/prepush/commit/{0}",
+    "authorURL": "https://github.com/{0}",
+    "issueIDURL": "https://github.com/royriojas/prepush/issues/{0}",
+    "projectName": "prepush"
+  }
 }

@@ -60,3 +60,4 @@ Options:
 # remove the hook
 ./node_modules/prepush/bin/prepush.js remove
 ```
+## [Changelog](./changelog.md)

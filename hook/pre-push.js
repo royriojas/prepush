@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 var nodeProcess = require( 'process' );
+var opts = require( 'prepush-config' );
+nodeProcess.chdir( opts.workingDirectory );
+var path = require( 'path' );
 
 var Promise = ( function () {
   var _Promise;
@@ -8,11 +11,15 @@ var Promise = ( function () {
   try {
     _Promise = require( 'prepush/lib/promise' );
   } catch (ex) {
+    try {
+      _Promise = require( path.resolve( opts.workingDirectory, './node_modules/prepush/lib/promise' ) );
+    } catch (ex) {
       try {
-          _Promise = require( 'es6-promise' ).Promise;
+        _Promise = require( 'es6-promise' ).Promise;
       } catch (err) {
-              console.error( '>> could not execute the prepush missing `Promise` module. try running `npm i -D es6-promise`' );
+        console.error( '>> could not execute the prepush missing `Promise` module. try running `npm i -D es6-promise`' );
       }
+    }
   }
   return _Promise;
 }());
@@ -45,9 +52,6 @@ var readJSON = function ( filePath, options ) {
 };
 
 var main = function () {
-  var opts = require( 'prepush-config' );
-
-  nodeProcess.chdir( opts.workingDirectory );
 
   console.log( '>>> prepush hook start' );
 
