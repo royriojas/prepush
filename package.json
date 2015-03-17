@@ -12,7 +12,8 @@
     "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'lib/**/*.js' -p 'hook/**/*.js' -p 'bin/**/*.js' npm run cover",
     "check": "npm run beautify-check && npm run eslint",
     "lint": "npm run beautify && npm run eslint",
-    "prepush": "npm run check && npm test"
+    "prepush": "npm run check && npm test",
+    "changelog": "changelogx -f markdown -o ./changelog.md"
   },
   "prepush": [
     "npm run prepush"
@@ -27,6 +28,7 @@
   "license": "MIT",
   "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
+    "changelogx": "^1.0.5",
     "eslint": "^0.16.1",
     "eslint-friendly-formatter": "^1.0.3",
     "istanbul": "^0.3.7",

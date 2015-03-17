@@ -2,6 +2,12 @@
 # prepush - Changelog
 ## HEAD
 - **Build Scripts Changes**
+  - Add changelogx dep - [46ee9fc]( https://github.com/royriojas/prepush/commit/46ee9fc ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:38:52
+    
+## v1.0.4
+- **Build Scripts Changes**
+  - Release v1.0.4 - [b002501]( https://github.com/royriojas/prepush/commit/b002501 ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:36:58
+    
   - Add keywords - [c7184ca]( https://github.com/royriojas/prepush/commit/c7184ca ), [Roy Riojas](https://github.com/Roy Riojas), 11/03/2015 04:34:57
     
 - **Enhancements**
@@ -24,4 +30,8 @@
     
 - **Other changes**
   - Initial commit - [4ba7ffb]( https://github.com/royriojas/prepush/commit/4ba7ffb ), [Roy Riojas](https://github.com/Roy Riojas), 09/03/2015 20:29:38
+    
+#### Promise issue
+- **Bug Fixes**
+  - Fix for an issue when trying to load the Promise module - [8f27be1]( https://github.com/royriojas/prepush/commit/8f27be1 ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:36:06
     
