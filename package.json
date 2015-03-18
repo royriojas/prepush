@@ -5,7 +5,7 @@
   "main": "lib/hook.js",
   "scripts": {
     "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
-    "beautify-check": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
+    "beautify-check": "esbeautifier -k lib/**/*.js bin/**/*.js hook/**/*.js",
     "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' lib/ bin/ hook/ -c './configs/eslint.json'",
     "test": "mocha-runner 'specs/**/*.js'",
     "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
