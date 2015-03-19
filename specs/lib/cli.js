@@ -11,7 +11,7 @@ describe('cli', function () {
       '../lib/console': mockConsole,
       '../lib/cli': {
         install: function () {
-          throw new Error('Some Error');
+          throw new Error('Some Generic error');
         }
       }
     });
