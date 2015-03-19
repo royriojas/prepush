@@ -1,8 +1,25 @@
 
 # prepush - Changelog
-## HEAD
+## v1.0.7
 - **Build Scripts Changes**
-  - Add changelogx dep - [46ee9fc]( https://github.com/royriojas/prepush/commit/46ee9fc ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:38:52
+  - Release v1.0.7 - [abd322a]( https://github.com/royriojas/prepush/commit/abd322a ), [Roy Riojas](https://github.com/Roy Riojas), 19/03/2015 04:19:46
+    
+#### hook
+- **Features**
+  - The hook now will stash your changes previous to execute the prepush tasks - [ec943e6]( https://github.com/royriojas/prepush/commit/ec943e6 ), [Roy Riojas](https://github.com/Roy Riojas), 19/03/2015 04:13:53
+    
+## v1.0.6
+- **Build Scripts Changes**
+  - Release v1.0.6 - [0442ff2]( https://github.com/royriojas/prepush/commit/0442ff2 ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 23:51:48
+    
+- **Enhancements**
+  - Improved log message - [30e4149]( https://github.com/royriojas/prepush/commit/30e4149 ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 23:51:38
+    
+## v1.0.5
+- **Build Scripts Changes**
+  - Release v1.0.5 - [273c665]( https://github.com/royriojas/prepush/commit/273c665 ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:39:35
+    
+  - Add changelogx dep - [2a5ddfe]( https://github.com/royriojas/prepush/commit/2a5ddfe ), [Roy Riojas](https://github.com/Roy Riojas), 17/03/2015 03:39:28
     
 ## v1.0.4
 - **Build Scripts Changes**
