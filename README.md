@@ -6,10 +6,11 @@
 
 ## Motivation
 
-### Where to get the tasks to run 
-
 All the other modules similar to this one were specifying the prepush tasks in the `package.json` file. While this is ok
-I needed to have it defined in a separated config file.
+I needed to have it defined in a separated config file. Also I needed to have the option to interactively ask the user 
+to decide what to do in case a push was done with a dirty state (*uncommited*/*untracked* files)
+
+![screenshot](screenshot.png)
 
 ## Install
 
@@ -20,7 +21,6 @@ npm i --save-dev prepush
 # install the hook, passing the path to the config. If none is provided it will try to use the `package.json`
 ./node_modules/prepush/bin/prepush.js install -c ./path/to/your/config
 ```
-
 
 Using a custom prepush.json 
 
@@ -35,6 +35,27 @@ or in your package.json file
   "prepush" : [ "grunt prepush" ]
 }
 ```
+
+or as an object in a `custom.json` file or in `package.json`
+
+```javascript
+{
+  "prepush" : {
+    // the tasks to run
+    "tasks" : [ "grunt prepush" ],
+    // What to do in case of a dirty state
+    // ask   => Show a prompt to the user to decide what to do, stash or fail.
+    // fail  => Simply refuse to push something when you have uncommited/untracked files
+    // stash => If there are uncommited/untracked files stash them, do the push and restore the stash
+    //          This will also move untracked files into the stash          
+    "onDirtyState": "ask" // <== fail or stash
+  }
+}
+```
+
+**Important** 
+Be aware that if you cancel the program using `CTRL+C` then the stash might not be restored. So you will have 
+to restore it manually. TODO: trap the `SIGINT` event and restore the stash transparently for the user. 
 
 ## Usage
 

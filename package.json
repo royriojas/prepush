@@ -15,9 +15,12 @@
     "prepush": "npm run check && npm test",
     "changelog": "changelogx -f markdown -o ./changelog.md"
   },
-  "prepush": [
-    "npm run prepush"
-  ],
+  "prepush": {
+    "tasks": [
+      "npm run prepush"
+    ],
+    "onDirtyState": "ask"
+  },
   "bin": {
     "prepush": "./bin/prepush.js"
   },
@@ -30,7 +33,7 @@
   "devDependencies": {
     "changelogx": "^1.0.5",
     "eslint": "^0.16.1",
-    "eslint-friendly-formatter": "^1.0.3",
+    "eslint-friendly-formatter": "^1.0.5",
     "istanbul": "^0.3.7",
     "mocha-runner": "^1.0.4",
     "proxyquire": "^1.4.0",

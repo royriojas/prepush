@@ -1,33 +1,61 @@
 #!/usr/bin/env node
 
+var fs = require( 'fs' );
 var nodeProcess = require( 'process' );
 var nConsole = require( 'console' );
 var opts = require( 'prepush-config' );
 nodeProcess.chdir( opts.workingDirectory );
 var path = require( 'path' );
 
-var log = {
-  ok: function () {
-    var args = [].slice.call( arguments );
-    args.unshift( '\x1B[33m\x1B[1m' );
-    args.push( '\x1B[22m\x1B[39m' );
+var green = function () {
+  var args = [].slice.call( arguments );
+  args.unshift( '\x1B[33m' );
+  args.push( '\x1B[22m\x1B[39m' );
+  return args;
+};
 
-    nConsole.log.apply( nConsole, args );
-  },
-  log: function () {
-    var args = [].slice.call( arguments );
-    args.unshift( '\x1B[90m\x1B[1m' );
-    args.push( '\x1B[22m\x1B[39m' );
+var gray = function () {
+  var args = [].slice.call( arguments );
+  args.unshift( '\x1B[90m' );
+  args.push( '\x1B[22m\x1B[39m' );
+  return args;
+};
 
-    nConsole.log.apply( nConsole, args );
-  },
-  error: function () {
-    var args = [].slice.call( arguments );
-    args.unshift( '\x1B[31m\x1B[1m' );
-    args.push( '\x1B[22m\x1B[39m' );
+var red = function () {
+  var args = [].slice.call( arguments );
+  args.unshift( '\x1B[31m' );
+  args.push( '\x1B[22m\x1B[39m' );
+  return args;
+};
 
-    nConsole.error.apply( nConsole, args );
-  }
+var white = function () {
+  var args = [].slice.call( arguments );
+  args.unshift( '\x1B[37m' );
+  args.push( '\x1B[22m\x1B[39m' );
+  return args;
+};
+
+var yellow = function () {
+  var args = [].slice.call( arguments );
+  args.unshift( '\x1B[33m' );
+  args.push( '\x1B[22m\x1B[39m' );
+  return args;
+};
+
+var yellowString = function () {
+  return yellow.apply( null, arguments ).join( '' );
+};
+
+var grayString = function () {
+  return gray.apply( null, arguments ).join( '' );
+};
+
+var redString = function () {
+  return red.apply( null, arguments ).join( '' );
+};
+
+var whiteString = function () {
+  return white.apply( null, arguments ).join( '' );
 };
 
 var Promise = ( function () {
@@ -48,6 +76,57 @@ var Promise = ( function () {
   }
   return _Promise;
 }());
+
+
+// taken from: https://github.com/noyobo/confirm-simple/blob/master/lib/index.js
+//
+var ttyConfirm = function ( question, callback ) {
+  return new Promise( function ( resolve, reject ) {
+
+    var readline = require( 'readline' );
+    var tty = fs.createReadStream( '/dev/tty', 'utf8' );
+    var r = readline.createInterface( {
+      input: tty,
+      output: nodeProcess.stdout,
+      terminal: false
+    } );
+
+    r.question( question + '\n\n' +
+        whiteString( '>> continue? ' ) +
+        grayString( '(' ) +
+        grayString( 'yes' ) +
+        grayString( '|' ) +
+        whiteString( 'no' ) +
+        grayString( ') : ' ), function ( answer ) {
+
+        var yes = answer.trim() === 'yes';
+
+        callback && callback( null, yes );
+
+        if ( yes ) {
+          resolve( answer );
+        } else {
+          reject();
+        }
+        tty.close();
+      } );
+  } );
+};
+
+var log = {
+  ok: function () {
+    var args = green.apply( null, arguments ).join( '' );
+    nConsole.log.call( nConsole, args );
+  },
+  log: function () {
+    var args = gray.apply( null, arguments ).join( '' );
+    nConsole.log.call( nConsole, args );
+  },
+  error: function () {
+    var args = red.apply( null, arguments ).join( '' );
+    nConsole.error.call( nConsole, args );
+  }
+};
 
 var exec = function ( cmd ) {
   var spawn = require( 'child_process' ).spawn;
@@ -93,7 +172,6 @@ var runPrepushTasks = function ( tasksToRun ) {
 };
 
 
-var fs = require( 'fs' );
 var readJSON = function ( filePath, options ) {
   return JSON.parse( String( fs.readFileSync( filePath, options ) ).replace( /^\ufeff/g, '' ) );
 };
@@ -118,6 +196,7 @@ var getDirtyState = function () {
       } );
     } );
   }, Promise.resolve( [] ) );
+
   return p.then( function ( dirtyState ) {
     return dirtyState.filter( function ( entry ) {
       return entry !== '';
@@ -127,7 +206,10 @@ var getDirtyState = function () {
 
 var doWithStashIf = function ( condition ) {
   if ( condition ) {
-    return doExec( 'git stash --include-untracked' );
+    log.log( '>> Saving the current dirty state' );
+    return doExec( 'touch __prepush_file___898989.temp' ).then( function () {
+      return doExec( 'git stash save "prepush" --include-untracked' );
+    } );
   }
   return Promise.resolve();
 };
@@ -142,15 +224,26 @@ var checkNoRebaseBranch = function () {
 
 var restoreStash = function ( condition, dirtyState ) {
   if ( condition ) {
-    log.log( '>> restoring state...', JSON.stringify( dirtyState, null, 2 ) );
+    log.log( '>> restoring state... \n    - ', dirtyState.join( '\n    - ' ) );
     return doExec( 'git stash pop' ).then( function () {
       log.log( '>> state restored!' );
-      return true;
+      return doExec( 'rm __prepush_file___898989.temp' );
     } ).catch( function ( err ) {
       log.error( '>> error trying to restore the stash', err );
     } );
   }
   return Promise.resolve( true );
+};
+
+var confirmToProceed = function ( isDirty, onDirtyState, dirtyState ) {
+  if ( isDirty && onDirtyState === 'ask' ) {
+    return ttyConfirm(
+      redString( '\n>> The index is not clean, the following files are not commited:\n\n' ) +
+        yellowString( '    - ' + dirtyState.join( '\n    - ' ) ) +
+        whiteString( '\n\n>> A stash entry will be created and applied after the check is completed' )
+    );
+  }
+  return Promise.resolve();
 };
 
 var main = function ( /*args*/ ) {
@@ -160,7 +253,19 @@ var main = function ( /*args*/ ) {
 
   var config = readJSON( opts.configFile );
 
-  var tasks = config.prepush || [];
+  var prepushSection = config.prepush;
+  var tasks;
+  var onDirtyState;
+
+  if ( Array.isArray( prepushSection ) ) {
+    tasks = prepushSection;
+    onDirtyState = 'ask';
+  } else {
+    if ( prepushSection !== null && typeof prepushSection !== 'undefined' ) {
+      tasks = prepushSection.tasks;
+      onDirtyState = prepushSection.onDirtyState || 'ask';
+    }
+  }
 
   if ( tasks.length === 0 ) {
     log.ok( '>> no prepush tasks specified on file', opts.configFile );
@@ -172,23 +277,35 @@ var main = function ( /*args*/ ) {
       getDirtyState().then( function ( dirtyState ) {
         var isDirty = dirtyState.length > 0;
         if ( isDirty ) {
-          log.log( '>> files in dirty state', JSON.stringify( dirtyState, null, 2 ) );
+          log.log( '>> files in dirty state \n    - ', dirtyState.join( '\n    - ' ) );
+          if ( onDirtyState === 'fail' ) {
+            log.error( '>> Prepush check failed. <<\n\n Refusing do the check on a dirty three. Please stash or commit your changes\n' );
+            nodeProcess.exit( 1 );
+          }
         }
-        doWithStashIf( isDirty ).then( function () {
-          var p = runPrepushTasks( tasks );
 
-          p.then( function () {
-            return restoreStash( isDirty, dirtyState );
-          } );
+        confirmToProceed( isDirty, onDirtyState, dirtyState ).then( function () {
+          doWithStashIf( isDirty ).then( function () {
+            var p = runPrepushTasks( tasks );
 
-          p.catch( function ( err ) {
-            restoreStash( isDirty, dirtyState ).then( function () {
-              if ( err ) {
-                log.error( '>> prepush check failed. Stopping push' );
-                nodeProcess.exit( err );
-              }
+            p.then( function () {
+              return restoreStash( isDirty, dirtyState ).then( function () {
+                log.ok( '>> Prepush check complete!' );
+              } );
+            } );
+
+            p.catch( function ( exitCode ) {
+              restoreStash( isDirty, dirtyState ).then( function () {
+                if ( exitCode ) {
+                  log.error( '>> prepush check failed. Stopping push' );
+                  nodeProcess.exit( exitCode );
+                }
+              } );
             } );
           } );
+        } ).catch( function () {
+          log.error( '>> prepush check Canceled. Stopping push' );
+          nodeProcess.exit( 1 );
         } );
       } );
       return;
@@ -198,11 +315,19 @@ var main = function ( /*args*/ ) {
   } );
 };
 
-nodeProcess.stdin.once( 'readable', function () {
-  var data = nodeProcess.stdin.read();
-  if ( !data ) {
-    log.log( '>> no changes to verify' );
+
+// git prepush send the ref/sha1 of the local and remote thru stdin
+// When there is nothing to push an empty line is received. In that
+// case we don't need to to anything
+var stdin = nodeProcess.stdin;
+
+stdin.setEncoding( 'utf8' );
+stdin.resume();
+
+stdin.on( 'data', function reader( data ) {
+  if ( !data || data.toString().trim() === '' ) {
+    log.log( '>> nothing to verify' );
     return;
   }
-  main( data.toString().split( ' ' ).concat( nodeProcess.argv ) );
+  main();
 } );
