@@ -10,7 +10,7 @@ All the other modules similar to this one were specifying the prepush tasks in t
 I needed to have it defined in a separated config file. Also I needed to have the option to interactively ask the user 
 to decide what to do in case a push was done with a dirty state (*uncommited*/*untracked* files)
 
-![screenshot](screenshot.png)
+![screenshot](prepush-screenshot.png)
 
 ## Install
 
