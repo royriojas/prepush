@@ -269,7 +269,7 @@ var main = function ( /*args*/ ) {
 
   if ( tasks.length === 0 ) {
     log.ok( '>> Prepush check skipped. No tasks specified on file', opts.configFile );
-    log.log( '\n>> add a section to your .json file like this one:\n------------------------------------\n{\n  "prepush": {\n    "tasks": [\n      "npm run prepush"\n    ],\n    "onDirtyState": "ask"\n  }\n}\n------------------------------------\n>> or this simplified one\n------------------------------------\n{\n  "prepush": ["npm run prepush" ]\n}\n------------------------------------\n* The prepush task need to provided by you it can be any script' );
+    log.log( '\n>> add a section to your .json file like this one:\n------------------------------------\n{\n  "prepush": {\n    "tasks": [\n      "npm run prepush"\n    ],\n    "onDirtyState": "ask" // fail or stash\n  }\n}\n------------------------------------\n>> or this simplified one\n------------------------------------\n{\n  "prepush": ["npm run prepush" ]\n}\n------------------------------------\n* The prepush task should be provided by you. It can be any script\n\nCheck https://github.com/royriojas/prepush#install.' );
     return;
   }
 
