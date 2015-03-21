@@ -254,7 +254,7 @@ var main = function ( /*args*/ ) {
   var config = readJSON( opts.configFile );
 
   var prepushSection = config.prepush;
-  var tasks;
+  var tasks = [];
   var onDirtyState;
 
   if ( Array.isArray( prepushSection ) ) {
@@ -268,7 +268,8 @@ var main = function ( /*args*/ ) {
   }
 
   if ( tasks.length === 0 ) {
-    log.ok( '>> no prepush tasks specified on file', opts.configFile );
+    log.ok( '>> Prepush check skipped. No tasks specified on file', opts.configFile );
+    log.log( '\n>> add a section to your .json file like this one:\n------------------------------------\n{\n  "prepush": {\n    "tasks": [\n      "npm run prepush"\n    ],\n    "onDirtyState": "ask"\n  }\n}\n------------------------------------\n>> or this simplified one\n------------------------------------\n{\n  "prepush": ["npm run prepush" ]\n}\n------------------------------------\n* The prepush task need to provided by you it can be any script' );
     return;
   }
 
@@ -297,14 +298,14 @@ var main = function ( /*args*/ ) {
             p.catch( function ( exitCode ) {
               restoreStash( isDirty, dirtyState ).then( function () {
                 if ( exitCode ) {
-                  log.error( '>> prepush check failed. Stopping push' );
+                  log.error( '>> Prepush check failed. Stopping push' );
                   nodeProcess.exit( exitCode );
                 }
               } );
             } );
           } );
         } ).catch( function () {
-          log.error( '>> prepush check Canceled. Stopping push' );
+          log.error( '>> Prepush check Canceled. Stopping push' );
           nodeProcess.exit( 1 );
         } );
       } );
