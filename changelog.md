@@ -1,5 +1,14 @@
 
 # prepush - Changelog
+## v2.0.3
+- **Build Scripts Changes**
+  - Release v2.0.3 - [28d98db]( https://github.com/royriojas/prepush/commit/28d98db ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:22:19
+    
+- **Documentation**
+  - Better error message when prepush property not found in config file. Related to [#1](https://github.com/royriojas/prepush/issues/1) - [fe20167]( https://github.com/royriojas/prepush/commit/fe20167 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:21:59
+    
+  - Added changelog - [ae1b3d2]( https://github.com/royriojas/prepush/commit/ae1b3d2 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:17:16
+    
 ## v2.0.2
 - **Build Scripts Changes**
   - Release v2.0.2 - [528d79b]( https://github.com/royriojas/prepush/commit/528d79b ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:15:57
