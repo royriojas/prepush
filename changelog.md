@@ -1,5 +1,40 @@
 
 # prepush - Changelog
+## v2.0.2
+- **Build Scripts Changes**
+  - Release v2.0.2 - [528d79b]( https://github.com/royriojas/prepush/commit/528d79b ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:15:57
+    
+  - Release v2.0.1 - [aabeec9]( https://github.com/royriojas/prepush/commit/aabeec9 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:15:42
+    
+- **Documentation**
+  - Fix broken link to image - [44c6ad0]( https://github.com/royriojas/prepush/commit/44c6ad0 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:15:42
+    
+#### prepush tasks
+- **Bug Fixes**
+  - Do not fail if the prepush tasks is not present. Fix [#1](https://github.com/royriojas/prepush/issues/1) - [e0bc489]( https://github.com/royriojas/prepush/commit/e0bc489 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:15:18
+    Now a message explaining the error is presented to the user, letting him know how to fix the issue
+   
+## v2.0.1
+- **Build Scripts Changes**
+  - Release v2.0.1 - [11c500f]( https://github.com/royriojas/prepush/commit/11c500f ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:11:48
+    
+#### prepush tasks
+- **Bug Fixes**
+  - Do not fail if the prepush tasks is not present - [495f5a8]( https://github.com/royriojas/prepush/commit/495f5a8 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 18:10:41
+    Now a message explaining the error is presented to the user
+   
+## v2.0.0
+- **Build Scripts Changes**
+  - Release v2.0.0 - [b871953]( https://github.com/royriojas/prepush/commit/b871953 ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 01:50:50
+    
+#### hook improvements
+- **Enhancements**
+  - Add option to ask for confirmation before push - [21d3a8e]( https://github.com/royriojas/prepush/commit/21d3a8e ), [Roy Riojas](https://github.com/Roy Riojas), 20/03/2015 01:50:25
+    
+#### changelog
+- **Build Scripts Changes**
+  - generated changelog - [ebf88e9]( https://github.com/royriojas/prepush/commit/ebf88e9 ), [Roy Riojas](https://github.com/Roy Riojas), 19/03/2015 04:23:00
+    
 ## v1.0.7
 - **Build Scripts Changes**
   - Release v1.0.7 - [abd322a]( https://github.com/royriojas/prepush/commit/abd322a ), [Roy Riojas](https://github.com/Roy Riojas), 19/03/2015 04:19:46
