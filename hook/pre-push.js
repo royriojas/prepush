@@ -180,7 +180,7 @@ var getDirtyState = function () {
   //var dirtyState = [];
   var commands = [
     'git diff HEAD --name-only',
-    'git ls-files --other --directory --exclude-standard'
+    'git ls-files --other --exclude-standard'
   ];
 
   var p = commands.reduce( function ( seq, cmd ) {
@@ -207,8 +207,8 @@ var getDirtyState = function () {
 var doWithStashIf = function ( condition ) {
   if ( condition ) {
     log.log( '>> Saving the current dirty state' );
-    return doExec( 'touch __prepush_file___898989.temp' ).then( function () {
-      return doExec( 'git stash save "prepush" --include-untracked' );
+    return doExec( 'touch __prepush_file___deleteme_if_found.xyz' ).then( function () {
+      return doExec( 'git stash -u' );
     } );
   }
   return Promise.resolve();
@@ -227,7 +227,7 @@ var restoreStash = function ( condition, dirtyState ) {
     log.log( '>> restoring state... \n    - ', dirtyState.join( '\n    - ' ) );
     return doExec( 'git stash pop' ).then( function () {
       log.log( '>> state restored!' );
-      return doExec( 'rm __prepush_file___898989.temp' );
+      return doExec( 'rm __prepush_file___deleteme_if_found.xyz' );
     } ).catch( function ( err ) {
       log.error( '>> error trying to restore the stash', err );
     } );
