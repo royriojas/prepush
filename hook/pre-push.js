@@ -96,7 +96,7 @@ var ttyConfirm = function ( question, callback ) {
         grayString( '(' ) +
         grayString( 'yes' ) +
         grayString( '|' ) +
-        whiteString( 'no' ) +
+        whiteString( 'NO' ) +
         grayString( ') : ' ), function ( answer ) {
 
         var yes = answer.trim() === 'yes';
