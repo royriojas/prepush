@@ -6,14 +6,15 @@
   "scripts": {
     "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
     "beautify-check": "esbeautifier -k lib/**/*.js bin/**/*.js hook/**/*.js",
-    "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' lib/ bin/ hook/ -c './configs/eslint.json'",
+    "eslint": "eslinter lib/**/*.js bin/**/*.js hook/**/*.js",
     "test": "mocha-runner 'specs/**/*.js'",
     "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
     "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'lib/**/*.js' -p 'hook/**/*.js' -p 'bin/**/*.js' npm run cover",
     "check": "npm run beautify-check && npm run eslint",
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run check && npm test",
-    "changelog": "changelogx -f markdown -o ./changelog.md"
+    "changelog": "changelogx -f markdown -o ./changelog.md",
+    "install-hooks": "changelogx install-hook && ./bin/prepush.js install"
   },
   "prepush": {
     "tasks": [
@@ -31,9 +32,9 @@
   "license": "MIT",
   "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
-    "changelogx": "^1.0.5",
-    "eslint": "^0.16.1",
-    "eslint-friendly-formatter": "^1.0.5",
+    "changelogx": "^1.0.11",
+    "esbeautifier": "^2.0.5",
+    "eslinter": "^1.0.0",
     "istanbul": "^0.3.7",
     "mocha-runner": "^1.0.4",
     "proxyquire": "^1.4.0",
