@@ -14,7 +14,8 @@
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run check && npm test",
     "changelog": "changelogx -f markdown -o ./changelog.md",
-    "install-hooks": "changelogx install-hook && ./bin/prepush.js install"
+    "install-hooks": "changelogx install-hook && ./bin/prepush.js install",
+    "bump": "bumpery --versionType=patch --verify='npm run check'"
   },
   "prepush": {
     "tasks": [
@@ -32,6 +33,7 @@
   "license": "MIT",
   "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
+    "bumpery": "^1.0.4",
     "changelogx": "^1.0.11",
     "esbeautifier": "^2.0.5",
     "eslinter": "^1.0.0",
