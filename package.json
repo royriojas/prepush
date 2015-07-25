@@ -19,6 +19,7 @@
     "install-hooks": "./bin/cli.js install && changelogx install-hook"
   },
   "prepush": {
+    "coloredOuput": true,
     "tasks": [
       "npm run prepush"
     ],
@@ -43,7 +44,6 @@
     "watch-spawn": "^1.0.3"
   },
   "dependencies": {
-    "chalk": "^1.1.0",
     "clix": "^1.1.5",
     "del": "^1.2.0",
     "es6-promise": "^2.3.0",

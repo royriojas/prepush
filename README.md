@@ -19,10 +19,8 @@ to decide what to do in case a push was done with a dirty state (*uncommited*/*u
 npm i --save-dev prepush
 
 # install the hook, passing the path to the config. If none is provided it will try to use the `package.json`
-./node_modules/prepush/bin/prepush.js install -c ./path/to/your/config
+./node_modules/prepush/bin/cli.js install -c ./path/to/your/config
 ```
-
-## protip
 
 Using a custom prepush.json
 
@@ -31,14 +29,16 @@ Using a custom prepush.json
   "prepush" : [ "npm test" ]
 }
 ```
+
 or in your package.json file
+
 ```javascript
 {
   "prepush" : [ "grunt prepush" ]
 }
 ```
 
-or as an object in a `custom.json` file or in `package.json`
+or as an object in a `custom.json` file or in `package.json` add the following section
 
 ```javascript
 {
@@ -50,38 +50,91 @@ or as an object in a `custom.json` file or in `package.json`
     // fail  => Simply refuse to push something when you have uncommited/untracked files
     // stash => If there are uncommited/untracked files stash them, do the push and restore the stash
     //          This will also move untracked files into the stash
-    "onDirtyState": "ask" // <== fail or stash
+    "onDirtyState": "ask", // <== fail or stash,
+    "coloredOuput" : true // <== true or false. If ommited it will try to use the env variable `__CLIX_COLORED_OUTPUT__` (from `clix` module)
   }
 }
 ```
 
 **Important**
-Be aware that if you cancel the program using `CTRL+C` then the stash might not be restored. So you will have
-to restore it manually. TODO: trap the `SIGINT` event and restore the stash transparently for the user.
+Be aware that if you cancel the program using `CTRL+C` then the stash might not be restored.
+So you will have to restore it manually. TODO: trap the `SIGINT` event and restore the
+stash transparently for the user.
 
-## Usage
+## cli usage
+
+The following are the options available on the cli command that install/remove the hook. To pass options to the hook. Please use the `prepush` section on your config file or in the `package.json` file.
 
 ```
-Usage: prepush [install|remove] -c [path/to/config/file]
+Yet another `prepush` module that will run tasks defined in a config file or in a package.json file, stashing anything that is not supposed to be pushed before run the scripts to avoid false positives!
 
-Options:
-  -h, --help                 Show this help
-  -c, --config path::String  path to a config JSON file with a prepush field in it. This file
-                             is only required in case of install
-  -v, --version              Outputs the version number
+========================================================
+Usage: prepush -c [path/to/config/file] [install|remove]
+========================================================
+
+  -h, --help           Show this help
+  -v, --version        Outputs the version number
+  -q, --quiet          Show only the summary info - default: false
+  --colored-output     Use colored output in logs
+  -c, --config String  Path to your `prepush` config, if not provided will try to use the `package.json` file in your current working directory, expecting an
+                       entry called `prepush`
 ```
+
+**Note**: The `colored-output` in the cli is only for logs during installing/removing the hook.
+
+If you want to enable the colored logs in the actual prepush hook, please include the option
+`coloredOutput` in your `prepush` section. Like this:
+
+```javascript
+{
+  "prepush": {
+    // the tasks to run
+    "tasks" : [ "grunt prepush" ],
+    "onDirtyState": "ask",
+    "coloredOuput" : true // or false
+  }
+}
+```
+
+The hook also honor the clix env variable to enable colored output `__CLIX_COLORED_OUTPUT__` so if you set this variable in your environment you don't need to configure it in the `prepush` section.
 
 ## Example
 
 ```bash
 # install the hook and use the package.json prepush field
-./node_modules/prepush/bin/prepush.js install
+./node_modules/prepush/bin/cli.js install
 
 # install the hook using a custom prepush.json file
-./node_modules/prepush/bin/prepush.js install -c ./path/to/prepush.json
+./node_modules/prepush/bin/cli.js install -c ./path/to/prepush.json
 
 # remove the hook
-./node_modules/prepush/bin/prepush.js remove
+./node_modules/prepush/bin/cli.js remove
+```
+
+## Usage in npm scripts
+
+```javascript
+// in the scripts field
+{
+  "scripts": {
+    "hook-install": "prepush install",
+    "hook-remove": "prepush remove",
+    "prepush" : "eslinter 'src/**/*.js'" // put here any script you want to run
+  },
+  "prepush" : {
+    "tasks" : ["npm run prepush"]
+  }
+}
+```
+
+then in the command line you can do:
+
+```bash
+# install
+npm run hook-install
+
+# remove
+npm run hook-remove
 ```
 
 ## License

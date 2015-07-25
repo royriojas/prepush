@@ -6,9 +6,28 @@ var nConsole = require( 'console' );
 var opts = require( 'prepush-config' );
 nodeProcess.chdir( opts.workingDirectory );
 var path = require( 'path' );
+var env = nodeProcess.env || { };
+
+var readJSON = function ( filePath, options ) {
+  return JSON.parse( String( fs.readFileSync( filePath, options ) ).replace( /^\ufeff/g, '' ) );
+};
+
+var config = readJSON( opts.configFile );
+var prepushSection = config.prepush;
+var configPrepush = prepushSection || { };
+var coloredOuput = configPrepush.coloredOuput;
+
+// if the coloredOutput was not specified
+if ( typeof coloredOuput === 'undefined' ) {
+  // try to use the value of the env variable
+  coloredOuput = env.__CLIX_COLORED_OUTPUT__ === 'true';
+}
 
 var green = function () {
   var args = [ ].slice.call( arguments );
+  if ( !coloredOuput ) {
+    return args;
+  }
   args.unshift( '\x1B[33m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -16,6 +35,9 @@ var green = function () {
 
 var gray = function () {
   var args = [ ].slice.call( arguments );
+  if ( !coloredOuput ) {
+    return args;
+  }
   args.unshift( '\x1B[90m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -23,6 +45,9 @@ var gray = function () {
 
 var red = function () {
   var args = [ ].slice.call( arguments );
+  if ( !coloredOuput ) {
+    return args;
+  }
   args.unshift( '\x1B[31m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -30,6 +55,9 @@ var red = function () {
 
 var white = function () {
   var args = [ ].slice.call( arguments );
+  if ( !coloredOuput ) {
+    return args;
+  }
   args.unshift( '\x1B[37m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -37,6 +65,9 @@ var white = function () {
 
 var yellow = function () {
   var args = [ ].slice.call( arguments );
+  if ( !coloredOuput ) {
+    return args;
+  }
   args.unshift( '\x1B[33m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -174,11 +205,6 @@ var runPrepushTasks = function ( tasksToRun ) {
   }, Promise.resolve() );
 };
 
-
-var readJSON = function ( filePath, options ) {
-  return JSON.parse( String( fs.readFileSync( filePath, options ) ).replace( /^\ufeff/g, '' ) );
-};
-
 var getDirtyState = function () {
 
   var commands = [
@@ -254,9 +280,6 @@ var main = function ( /*args*/ ) {
 
   log.log( '>> prepush hook start' );
 
-  var config = readJSON( opts.configFile );
-
-  var prepushSection = config.prepush;
   var tasks = [ ];
   var onDirtyState;
 
