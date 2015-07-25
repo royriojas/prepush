@@ -306,7 +306,7 @@ var main = function ( /*args*/ ) {
         if ( isDirty ) {
           log.log( '>> files in dirty state \n    - ', dirtyState.join( '\n    - ' ) );
           if ( onDirtyState === 'fail' ) {
-            log.error( '>> Prepush check failed. <<\n\n Refusing do the check on a dirty three. Please stash or commit your changes\n' );
+            log.error( '>> Prepush check failed. <<\n\n Refusing do the check on a dirty tree. Please stash or commit your changes\n' );
             nodeProcess.exit( 1 );
           }
         }
