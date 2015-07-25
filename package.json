@@ -58,6 +58,7 @@
   },
   "homepage": "https://github.com/royriojas/prepush",
   "keywords": [
+    "pre-push",
     "prepush",
     "hooks",
     "git",
