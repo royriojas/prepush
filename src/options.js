@@ -9,7 +9,7 @@ module.exports = {
    },
   //useDefaultOptions: true,
   optionator: {
-    prepend: 'Yet another `prepush` module that will run tasks defined in a config file or in a package.json file, stashing anything that is not supposed to be pushed before run the scripts to avoid false positives!\n\n========================================================\nUsage: prepush [install|remove]\n========================================================',
+    prepend: 'Yet another `prepush` module that will run tasks defined in a config file or in a package.json file, stashing anything that is not supposed to be pushed before run the scripts to avoid false positives!\n\n========================================================\nUsage: prepush -c [path/to/config/file] [install|remove]\n========================================================',
     options: []
   }
 };
