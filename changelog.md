@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.0.4
+- **Build Scripts Changes**
+  - use npm version instead of bumpery - [24a077a]( https://github.com/royriojas/prepush/commit/24a077a ), [royriojas](https://github.com/royriojas), 25/07/2015 04:44:46
+
+    
 ## v3.0.3
 - **Bug Fixes**
   - Wrong error handling inside promises - [ecefe26]( https://github.com/royriojas/prepush/commit/ecefe26 ), [royriojas](https://github.com/royriojas), 25/07/2015 04:36:59
@@ -10,6 +15,7 @@
   - Wrong error handling inside promises - [c17c87e]( https://github.com/royriojas/prepush/commit/c17c87e ), [royriojas](https://github.com/royriojas), 25/07/2015 04:35:02
 
     
+## v3.0.1
 - **Cosmetic fixes**
   - Fix typo in code - [ef6f6e5]( https://github.com/royriojas/prepush/commit/ef6f6e5 ), [royriojas](https://github.com/royriojas), 25/07/2015 04:13:06
 
