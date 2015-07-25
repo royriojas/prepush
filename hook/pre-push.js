@@ -8,35 +8,35 @@ nodeProcess.chdir( opts.workingDirectory );
 var path = require( 'path' );
 
 var green = function () {
-  var args = [].slice.call( arguments );
+  var args = [ ].slice.call( arguments );
   args.unshift( '\x1B[33m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
 };
 
 var gray = function () {
-  var args = [].slice.call( arguments );
+  var args = [ ].slice.call( arguments );
   args.unshift( '\x1B[90m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
 };
 
 var red = function () {
-  var args = [].slice.call( arguments );
+  var args = [ ].slice.call( arguments );
   args.unshift( '\x1B[31m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
 };
 
 var white = function () {
-  var args = [].slice.call( arguments );
+  var args = [ ].slice.call( arguments );
   args.unshift( '\x1B[37m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
 };
 
 var yellow = function () {
-  var args = [].slice.call( arguments );
+  var args = [ ].slice.call( arguments );
   args.unshift( '\x1B[33m' );
   args.push( '\x1B[22m\x1B[39m' );
   return args;
@@ -59,14 +59,19 @@ var whiteString = function () {
 };
 
 var Promise = ( function () {
-  var _Promise;
+  var _Promise = require( './Promise' );
+
+  // if native promise found, just use it instead attempt to require the `es6-promise` module
+  if ( _Promise ) {
+    return _Promise;
+  }
 
   try {
     _Promise = require( 'prepush/lib/promise' );
   } catch (ex) {
     try {
       _Promise = require( path.resolve( opts.workingDirectory, './node_modules/prepush/lib/promise' ) );
-    } catch (ex) {
+    } catch (_ex) {
       try {
         _Promise = require( 'es6-promise' ).Promise;
       } catch (err) {
@@ -135,9 +140,7 @@ var exec = function ( cmd ) {
 
   return new Promise( function ( resolve, reject ) {
 
-    var cp = spawn( command, args, {
-      stdio: 'inherit'
-    } );
+    var cp = spawn( command, args, { stdio: 'inherit' } );
 
     cp.on( 'exit', function ( exitCode ) {
       if ( exitCode !== 0 ) {
@@ -177,7 +180,7 @@ var readJSON = function ( filePath, options ) {
 };
 
 var getDirtyState = function () {
-  //var dirtyState = [];
+
   var commands = [
     'git diff HEAD --name-only',
     'git ls-files --other --exclude-standard'
@@ -185,7 +188,7 @@ var getDirtyState = function () {
 
   var p = commands.reduce( function ( seq, cmd ) {
     return seq.then( function ( prev ) {
-      return doExec( cmd ).then ( function ( res ) {
+      return doExec( cmd ).then( function ( res ) {
         if ( res ) {
           var files = res.split( '\n' );
           if ( files.length > 0 ) {
@@ -195,7 +198,7 @@ var getDirtyState = function () {
         return prev;
       } );
     } );
-  }, Promise.resolve( [] ) );
+  }, Promise.resolve( [ ] ) );
 
   return p.then( function ( dirtyState ) {
     return dirtyState.filter( function ( entry ) {
@@ -254,7 +257,7 @@ var main = function ( /*args*/ ) {
   var config = readJSON( opts.configFile );
 
   var prepushSection = config.prepush;
-  var tasks = [];
+  var tasks = [ ];
   var onDirtyState;
 
   if ( Array.isArray( prepushSection ) ) {

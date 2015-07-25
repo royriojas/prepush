@@ -29,4 +29,5 @@ build/Release
 node_modules
 
 .idea/
+.eslintrc
 

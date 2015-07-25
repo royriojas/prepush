@@ -4,9 +4,9 @@
   "description": "Yet another prepush script that will run tasks defined in a config file",
   "main": "lib/hook.js",
   "scripts": {
-    "beautify": "esbeautifier lib/**/*.js bin/**/*.js hook/**/*.js",
-    "beautify-check": "esbeautifier -k lib/**/*.js bin/**/*.js hook/**/*.js",
-    "eslint": "eslinter lib/**/*.js bin/**/*.js hook/**/*.js",
+    "beautify": "esbeautifier 'lib/**/*.js' 'bin/**/*.js' 'hook/**/*.js'",
+    "beautify-check": "esbeautifier -k 'lib/**/*.js' 'bin/**/*.js' 'hook/**/*.js'",
+    "eslint": "eslinter 'lib/**/*.js' 'bin/**/*.js' 'hook/**/*.js'",
     "test": "mocha-runner 'specs/**/*.js'",
     "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
     "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'lib/**/*.js' -p 'hook/**/*.js' -p 'bin/**/*.js' npm run cover",
@@ -14,8 +14,9 @@
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run check && npm test",
     "changelog": "changelogx -f markdown -o ./changelog.md",
-    "install-hooks": "changelogx install-hook && ./bin/prepush.js install",
-    "bump": "bumpery --versionType=patch --verify='npm run check'"
+    "bump": "bumpery --versionType=patch --verify='npm run check'",
+    "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
+    "install-hooks": "./bin/cli.js install && changelogx install-hook"
   },
   "prepush": {
     "tasks": [
@@ -24,7 +25,7 @@
     "onDirtyState": "ask"
   },
   "bin": {
-    "prepush": "./bin/prepush.js"
+    "prepush": "./bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -33,21 +34,20 @@
   "license": "MIT",
   "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
-    "bumpery": "^1.0.4",
-    "changelogx": "^1.0.11",
-    "esbeautifier": "^2.0.5",
-    "eslinter": "^1.0.0",
-    "istanbul": "^0.3.7",
-    "mocha-runner": "^1.0.4",
-    "proxyquire": "^1.4.0",
+    "changelogx": "^1.0.15",
+    "esbeautifier": "^3.2.0",
+    "eslinter": "^2.0.6",
+    "istanbul": "^0.3.17",
+    "mocha-runner": "^1.0.8",
+    "proxyquire": "^1.6.0",
     "watch-spawn": "^1.0.3"
   },
   "dependencies": {
-    "chalk": "^1.0.0",
-    "del": "^1.1.1",
-    "es6-promise": "^2.0.1",
-    "lodash.trim": "^3.0.1",
-    "optionator": "^0.5.0",
+    "chalk": "^1.1.0",
+    "clix": "^1.1.5",
+    "del": "^1.2.0",
+    "es6-promise": "^2.3.0",
+    "git-toplevel": "^1.1.0",
     "read-file": "^0.1.2",
     "read-json-sync": "^1.1.0",
     "stringformat": "0.0.5",
@@ -66,12 +66,5 @@
     "enforce",
     "git",
     "workflow"
-  ],
-  "changelogx": {
-    "issueIDRegExp": "#(\\d+)",
-    "commitURL": "https://github.com/royriojas/prepush/commit/{0}",
-    "authorURL": "https://github.com/{0}",
-    "issueIDURL": "https://github.com/royriojas/prepush/issues/{0}",
-    "projectName": "prepush"
-  }
+  ]
 }
