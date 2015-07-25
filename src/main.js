@@ -33,20 +33,18 @@ module.exports = {
         return;
       }
 
-      try {
-        hook.install( cfg ).then( function ( pathToFile ) {
-          cli.subtle( sFormat( 'Prepush file copied to: {0}', pathToFile ) );
-          cli.ok('Done!' );
-        } );
-      } catch (ex) {
-        throw new Error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
-      }
+      hook.install( cfg ).then( function ( pathToFile ) {
+        cli.subtle( sFormat( 'Prepush file copied to: {0}', pathToFile ) );
+        cli.ok('Done!' );
+      }, function (ex) {
+        cli.error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
+      } );
     }
     if ( command === 'remove' ) {
       hook.remove().then( function ( pathToFile ) {
         cli.ok( 'prepush file removed:', pathToFile );
       }, function (ex) {
-        throw new Error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
+        cli.error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
       } );
     }
   }

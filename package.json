@@ -16,7 +16,11 @@
     "changelog": "changelogx -f markdown -o ./changelog.md",
     "bump": "bumpery --versionType=patch --verify='npm run check'",
     "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
-    "install-hooks": "./bin/cli.js install && changelogx install-hook"
+    "install-hooks": "./bin/cli.js install && changelogx install-hook",
+    "preversion": "npm run check && npm test",
+    "postversion": "npm run do-changelog && git push && git push --tags",
+    "bump-minor": "npm version minor -m 'BLD: Release %s'",
+    "bump-patch": "npm version patch -m 'BLD: Release %s'"
   },
   "prepush": {
     "coloredOuput": true,
