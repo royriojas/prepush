@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.0.1
+- **Cosmetic fixes**
+  - Fix typo in code - [ef6f6e5]( https://github.com/royriojas/prepush/commit/ef6f6e5 ), [royriojas](https://github.com/royriojas), 25/07/2015 04:13:06
+
+    
 ## v3.0.0
 - **Build Scripts Changes**
   - Add missing `bumpery` dev dependency - [ccafe93]( https://github.com/royriojas/prepush/commit/ccafe93 ), [royriojas](https://github.com/royriojas), 25/07/2015 03:47:49
