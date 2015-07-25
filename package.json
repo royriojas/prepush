@@ -1,6 +1,6 @@
 {
   "name": "prepush",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Yet another prepush script that will run tasks defined in a config file",
   "main": "lib/hook.js",
   "scripts": {
@@ -16,7 +16,11 @@
     "changelog": "changelogx -f markdown -o ./changelog.md",
     "bump": "bumpery --versionType=patch --verify='npm run check'",
     "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
-    "install-hooks": "./bin/cli.js install && changelogx install-hook"
+    "install-hooks": "./bin/cli.js install && changelogx install-hook",
+    "preversion": "npm run check && npm test",
+    "postversion": "npm run do-changelog && git push && git push --tags",
+    "bump-minor": "npm version minor -m 'BLD: Release v%s'",
+    "bump-patch": "npm version patch -m 'BLD: Release v%s'"
   },
   "prepush": {
     "coloredOuput": true,
