@@ -12,7 +12,8 @@ to decide what to do in case a push was done with a dirty state (*uncommited*/*u
 
 ![screenshot](prepush-screenshot.png)
 
-**You might also like**: [precommit](https://npmjs.org/package/precommit). A module to install a script for the pre-commit git hook inspired by this module.
+**You might also like**: [precommit](https://npmjs.org/package/precommit). A module to install a script for the `pre-commit` git hook inspired by this module, and [changelogx](https://npmjs.org/package/changelogx) which also provide a script for the
+`commit-msg` git hook.
 
 ## Install
 
