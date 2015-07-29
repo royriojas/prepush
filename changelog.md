@@ -1,5 +1,17 @@
 
 # prepush - Changelog
+## v3.1.0
+- **Build Scripts Changes**
+  - make sure tests are executed during the pre-v script - [602e852]( https://github.com/royriojas/prepush/commit/602e852 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:26:35
+
+    
+  - Add precommit and bump-major - [7c0b497]( https://github.com/royriojas/prepush/commit/7c0b497 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:21:33
+
+    
+- **Refactoring**
+  - only try to restore the stash if it was created - [144cd93]( https://github.com/royriojas/prepush/commit/144cd93 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:15:28
+
+    
 ## v3.0.4
 - **Build Scripts Changes**
   - use npm version instead of bumpery - [24a077a]( https://github.com/royriojas/prepush/commit/24a077a ), [royriojas](https://github.com/royriojas), 25/07/2015 04:44:46
