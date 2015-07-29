@@ -1,5 +1,21 @@
 
 # prepush - Changelog
+## v3.1.2
+- **Build Scripts Changes**
+  - Update precommit dep - [aa44f34]( https://github.com/royriojas/prepush/commit/aa44f34 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:51:04
+
+    
+  - Wip - [0cfd384]( https://github.com/royriojas/prepush/commit/0cfd384 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:38:33
+
+    
+- **Tests Related fixes**
+  - Fix unit tests - [5e462f8]( https://github.com/royriojas/prepush/commit/5e462f8 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:50:47
+
+    
+- **Documentation**
+  - Add reference to changelogx - [7c714fd]( https://github.com/royriojas/prepush/commit/7c714fd ), [royriojas](https://github.com/royriojas), 29/07/2015 02:38:02
+
+    
 ## v3.1.1
 - **Build Scripts Changes**
   - Modify install-hooks to add `precommit` module - [4659d0c]( https://github.com/royriojas/prepush/commit/4659d0c ), [royriojas](https://github.com/royriojas), 29/07/2015 02:31:30
