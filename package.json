@@ -16,7 +16,7 @@
     "changelog": "changelogx -f markdown -o ./changelog.md",
     "bump": "bumpery --versionType=patch --verify='npm run check'",
     "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
-    "install-hooks": "./bin/cli.js install && changelogx install-hook",
+    "install-hooks": "./bin/cli.js install && changelogx install-hook && precommit install",
     "pre-v": "npm run check && npm test",
     "post-v": "npm run do-changelog && git push --no-verify && git push --tags --no-verify",
     "bump-major": "npm run pre-v && npm version major -m 'BLD: Release v%s' && npm run post-v",
