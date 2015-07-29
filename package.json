@@ -19,13 +19,21 @@
     "install-hooks": "./bin/cli.js install && changelogx install-hook",
     "pre-v": "npm run check && npm test",
     "post-v": "npm run do-changelog && git push && git push --tags",
+    "bump-major": "npm run pre-v && npm version major -m 'BLD: Release v%s' && npm run post-v",
     "bump-minor": "npm run pre-v && npm version minor -m 'BLD: Release v%s' && npm run post-v",
     "bump-patch": "npm run pre-v && npm version patch -m 'BLD: Release v%s' && npm run post-v"
   },
   "prepush": {
     "coloredOuput": true,
     "tasks": [
-      "npm run prepush"
+      "npm run prepush --silent"
+    ],
+    "onDirtyState": "ask"
+  },
+  "precommit": {
+    "coloredOuput": true,
+    "tasks": [
+      "npm run prepush --silent"
     ],
     "onDirtyState": "ask"
   },
@@ -45,6 +53,7 @@
     "eslinter": "^2.0.6",
     "istanbul": "^0.3.17",
     "mocha-runner": "^1.0.8",
+    "precommit": "^1.0.0",
     "proxyquire": "^1.6.0",
     "watch-spawn": "^1.0.3"
   },
