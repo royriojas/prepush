@@ -233,12 +233,25 @@ var getDirtyState = function () {
   } );
 };
 
+var lastStashCMD = 'git rev-parse -q --verify refs/stash';
+
+var getLastStash = function () {
+  return new Promise( function ( resolve ) {
+    doExec( lastStashCMD ).then( resolve, function () {
+      // in case of no stash this command will exit with a code different than 0
+      // We just want to make sure we can continue with the flow
+      // since this failure case can be treated as just an empty response
+      resolve( '' );
+    } );
+  } );
+};
+
 var doWithStashIf = function ( condition ) {
   if ( condition ) {
     log.log( '>> Saving the current dirty state' );
-    return doExec( 'touch __prepush_file___deleteme_if_found.xyz' ).then( function () {
-      return doExec( 'git stash -u' );
-    } );
+    //return doExec( 'touch __prepush_file___deleteme_if_found.xyz' ).then( function () {
+    return doExec( 'git stash -u' ).then( getLastStash );
+  //} );
   }
   return Promise.resolve();
 };
@@ -251,12 +264,11 @@ var checkNoRebaseBranch = function () {
   } );
 };
 
-var restoreStash = function ( condition, dirtyState ) {
-  if ( condition ) {
+var restoreStash = function ( condition, dirtyState, stashId ) {
+  if ( condition && stashId ) {
     log.log( '>> restoring state... \n    - ', dirtyState.join( '\n    - ' ) );
     return doExec( 'git stash pop' ).then( function () {
       log.log( '>> state restored!' );
-      return doExec( 'rm __prepush_file___deleteme_if_found.xyz' );
     } ).catch( function ( err ) {
       log.error( '>> error trying to restore the stash', err );
     } );
@@ -312,17 +324,17 @@ var main = function ( /*args*/ ) {
         }
 
         confirmToProceed( isDirty, onDirtyState, dirtyState ).then( function () {
-          doWithStashIf( isDirty ).then( function () {
+          doWithStashIf( isDirty ).then( function ( stashId ) {
             var p = runPrepushTasks( tasks );
 
             p.then( function () {
-              return restoreStash( isDirty, dirtyState ).then( function () {
+              return restoreStash( isDirty, dirtyState, stashId ).then( function () {
                 log.ok( '>> Prepush check complete!' );
               } );
             } );
 
             p.catch( function ( exitCode ) {
-              restoreStash( isDirty, dirtyState ).then( function () {
+              restoreStash( isDirty, dirtyState, stashId ).then( function () {
                 if ( exitCode ) {
                   log.error( '>> Prepush check failed. Stopping push' );
                   nodeProcess.exit( exitCode );

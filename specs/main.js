@@ -87,7 +87,7 @@ describe('main', function () {
 
       resolver.__resolve('path/to/file');
 
-      expect(cli.ok).to.have.been.calledWith(me.sandbox.match('prepush file removed:'), me.sandbox.match('path/to/file'));
+      expect(cli.ok).to.have.been.calledWith(me.sandbox.match('`prepush` file removed:'), me.sandbox.match('path/to/file'));
       done();
 
     });

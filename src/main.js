@@ -19,7 +19,7 @@ module.exports = {
 
     if ( command === 'install' ) {
       if ( !opts.config ) {
-        cli.subtle('config not provided, trying to use the package.json at current working directory' );
+        cli.subtle('Config not provided, trying to use the package.json at current working directory' );
         opts.config = './package.json';
       }
 
@@ -34,17 +34,17 @@ module.exports = {
       }
 
       hook.install( cfg ).then( function ( pathToFile ) {
-        cli.subtle( sFormat( 'Prepush file copied to: {0}', pathToFile ) );
+        cli.subtle( sFormat( '`prepush` file copied to: {0}', pathToFile ) );
         cli.ok('Done!' );
       }, function (ex) {
-        cli.error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
+        cli.error( sFormat( 'Error installing `prepush` hook, Error: {0}', ex.message ) );
       } );
     }
     if ( command === 'remove' ) {
       hook.remove().then( function ( pathToFile ) {
-        cli.ok( 'prepush file removed:', pathToFile );
+        cli.ok( '`prepush` file removed:', pathToFile );
       }, function (ex) {
-        cli.error( sFormat( 'Error installing prepush hook, Error: {0}', ex.message ) );
+        cli.error( sFormat( 'Error installing `prepush` hook, Error: {0}', ex.message ) );
       } );
     }
   }
