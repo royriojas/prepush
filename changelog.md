@@ -1,5 +1,14 @@
 
 # prepush - Changelog
+## v3.1.1
+- **Build Scripts Changes**
+  - Modify install-hooks to add `precommit` module - [4659d0c]( https://github.com/royriojas/prepush/commit/4659d0c ), [royriojas](https://github.com/royriojas), 29/07/2015 02:31:30
+
+    
+- **Documentation**
+  - Add reference to precommit - [4d7b5bb]( https://github.com/royriojas/prepush/commit/4d7b5bb ), [royriojas](https://github.com/royriojas), 29/07/2015 02:30:45
+
+    
 ## v3.1.0
 - **Build Scripts Changes**
   - make sure tests are executed during the pre-v script - [602e852]( https://github.com/royriojas/prepush/commit/602e852 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:26:35
