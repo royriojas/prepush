@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.3
+- **Build Scripts Changes**
+  - Update to latest clix - [9c2418e]( https://github.com/royriojas/prepush/commit/9c2418e ), [royriojas](https://github.com/royriojas), 11/08/2015 14:20:01
+
+    
 ## v3.1.2
 - **Build Scripts Changes**
   - Update precommit dep - [aa44f34]( https://github.com/royriojas/prepush/commit/aa44f34 ), [royriojas](https://github.com/royriojas), 29/07/2015 02:51:04
