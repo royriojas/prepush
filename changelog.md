@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.4
+- **Build Scripts Changes**
+  - update clix dep to get nicer log output - [8e07a6c]( https://github.com/royriojas/prepush/commit/8e07a6c ), [royriojas](https://github.com/royriojas), 11/08/2015 17:45:07
+
+    
 ## v3.1.3
 - **Build Scripts Changes**
   - Update to latest clix - [9c2418e]( https://github.com/royriojas/prepush/commit/9c2418e ), [royriojas](https://github.com/royriojas), 11/08/2015 14:20:01
