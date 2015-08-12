@@ -58,7 +58,7 @@
     "watch-spawn": "^1.0.3"
   },
   "dependencies": {
-    "clix": "^2.0.2",
+    "clix": "^2.0.3",
     "del": "^1.2.0",
     "es6-promise": "^2.3.0",
     "git-toplevel": "^1.1.0",
