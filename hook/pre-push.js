@@ -117,35 +117,55 @@ var Promise = ( function () {
 // taken from: https://github.com/noyobo/confirm-simple/blob/master/lib/index.js
 //
 var ttyConfirm = function ( question, callback ) {
+  var domain = require( 'domain' );
+  var d = domain.create();
+
   return new Promise( function ( resolve, reject ) {
 
-    var readline = require( 'readline' );
-    var tty = fs.createReadStream( '/dev/tty', 'utf8' );
-    var r = readline.createInterface( {
-      input: tty,
-      output: nodeProcess.stdout,
-      terminal: false
+    d.on( 'error', function ( err ) {
+      if ( err.code === 'ENXIO' ) {
+        // when using a graphical interface like github
+        // there is no way we can create a tty stream
+        // hence we assume that the user wanted to say yes
+        // at least that will operate on the code
+        console.error( 'could not open TTY... assuming the user wanted to say yes' );
+        callback && callback( 'yes' );
+        resolve();
+      }
     } );
 
-    r.question( question + '\n\n' +
-        whiteString( '>> continue? ' ) +
-        grayString( '(' ) +
-        grayString( 'yes' ) +
-        grayString( '|' ) +
-        whiteString( 'NO' ) +
-        grayString( ') : ' ), function ( answer ) {
+    d.run( function () {
+      var readline = require( 'readline' );
 
-        var yes = answer.trim() === 'yes';
+      var tty = fs.createReadStream( '/dev/tty', 'utf8' );
 
-        callback && callback( null, yes );
-
-        if ( yes ) {
-          resolve( answer );
-        } else {
-          reject();
-        }
-        tty.close();
+      var r = readline.createInterface( {
+        input: tty,
+        output: nodeProcess.stdout,
+        terminal: false
       } );
+
+      r.question( question + '\n\n' +
+          whiteString( '>> continue? ' ) +
+          grayString( '(' ) +
+          grayString( 'yes' ) +
+          grayString( '|' ) +
+          whiteString( 'NO' ) +
+          grayString( ') : ' ), function ( answer ) {
+
+          var yes = answer.trim() === 'yes';
+
+          callback && callback( null, yes );
+
+          if ( yes ) {
+            resolve( answer );
+          } else {
+            reject();
+          }
+          tty.close();
+        } );
+    } );
+
   } );
 };
 
@@ -362,11 +382,63 @@ var stdin = nodeProcess.stdin;
 
 stdin.setEncoding( 'utf8' );
 stdin.resume();
+var applyToBranchFn = function ( branch ) {
+  var applyToBranch = prepushSection.applyToBranch;
+  if ( !applyToBranch ) {
+    return true; // apply to all branches no distinction
+  }
+  if ( !Array.isArray( applyToBranch ) ) {
+    applyToBranch = [ applyToBranch ];
+  }
+  return applyToBranch.filter( function ( branchName ) {
+      branchName = (branchName || '').trim();
+      return branchName === branch;
+    } ).length > 0;
+};
+
+var ignoreBranchFn = function ( branch ) {
+  var ignoreBranch = prepushSection.ignoreBranch;
+  if ( !ignoreBranch ) {
+    return false; // do not ignore the branch if no specified in the precommit section
+  }
+
+  if ( !Array.isArray( ignoreBranch ) ) {
+    ignoreBranch = [ ignoreBranch ];
+  }
+
+  return ignoreBranch.filter( function ( branchName ) {
+      branchName = (branchName || '').trim();
+      return branchName === branch;
+    } ).length > 0;
+};
 
 stdin.on( 'data', function reader( data ) {
   if ( !data || data.toString().trim() === '' ) {
     log.log( '>> nothing to verify' );
     return;
   }
-  main();
+  // check if can be applied to the given branch
+  doExec( 'git name-rev --name-only HEAD', function ( err, stdout /*, stderr*/ ) {
+    if ( err ) {
+      console.error( 'prepush error', err.message );
+      nodeProcess.exit( 1 );
+    }
+    stdout = (stdout || '').trim();
+
+    if ( !stdout ) {
+      console.error( 'could not determine the name of the branch. Stopping' );
+      nodeProcess.exit( 1 );
+    }
+
+    if ( ignoreBranchFn( stdout ) ) {
+      console.log( 'ignore prepush on branch ', stdout );
+      return;
+    }
+
+    if ( applyToBranchFn( stdout ) ) {
+      console.log( 'applying prepush on branch ', stdout );
+      main();
+    }
+  } );
+
 } );
