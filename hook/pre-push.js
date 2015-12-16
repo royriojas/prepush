@@ -205,12 +205,16 @@ var exec = function ( cmd ) {
 
 var doExec = function ( cmd, cb ) {
   var _exec = require( 'child_process' ).exec;
+  var _execOpts = { maxBuffer: Infinity };
+  if ( cmd.match( /^git/ ) ) {
+    _execOpts.cwd = opts.gitDirectory;
+  }
   return new Promise( function ( resolve, reject ) {
-    _exec( cmd, { maxBuffer: Infinity }, function ( err, stdout, stderr ) {
+    _exec( cmd, _execOpts, function ( err, stdout, stderr ) {
       if ( !err ) {
         resolve( stdout );
       } else {
-        reject( stderr );
+        reject( { err: err, stderr: stderr } );
       }
       cb && cb( err, stdout, stderr );
     } );
@@ -374,7 +378,6 @@ var main = function ( /*args*/ ) {
   } );
 };
 
-nodeProcess.chdir( opts.gitDirectory );
 // git prepush send the ref/sha1 of the local and remote thru stdin
 // When there is nothing to push an empty line is received. In that
 // case we don't need to to anything
