@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.6
+- **Bug Fixes**
+  - properly detect the git directory to ensure the git commands will use the right git info - [6b110fe]( https://github.com/royriojas/prepush/commit/6b110fe ), [royriojas](https://github.com/royriojas), 16/12/2015 04:31:33
+
+    
 ## v3.1.5
 - **Bug Fixes**
   - Make it usable in case a GUI is used to control git and add `ignoreBranch` and `applyToBranch` options - [1489471]( https://github.com/royriojas/prepush/commit/1489471 ), [royriojas](https://github.com/royriojas), 17/10/2015 22:30:16
