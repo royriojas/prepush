@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.7
+- **Bug Fixes**
+  - only change cwd to gitDirectory if a git command is executed - [4cb8c47]( https://github.com/royriojas/prepush/commit/4cb8c47 ), [royriojas](https://github.com/royriojas), 16/12/2015 04:45:26
+
+    
 ## v3.1.6
 - **Bug Fixes**
   - properly detect the git directory to ensure the git commands will use the right git info - [6b110fe]( https://github.com/royriojas/prepush/commit/6b110fe ), [royriojas](https://github.com/royriojas), 16/12/2015 04:31:33
