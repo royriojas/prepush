@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.8
+- **Bug Fixes**
+  - correctly create the pre-push file. Fixes [#5](https://github.com/royriojas/prepush/issues/5) - [879bfa2]( https://github.com/royriojas/prepush/commit/879bfa2 ), [royriojas](https://github.com/royriojas), 01/02/2016 18:30:37
+
+    
 ## v3.1.7
 - **Bug Fixes**
   - only change cwd to gitDirectory if a git command is executed - [4cb8c47]( https://github.com/royriojas/prepush/commit/4cb8c47 ), [royriojas](https://github.com/royriojas), 16/12/2015 04:45:26
