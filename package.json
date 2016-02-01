@@ -1,6 +1,6 @@
 {
   "name": "prepush",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "description": "Yet another prepush script that will run tasks defined in a config file",
   "main": "lib/hook.js",
   "scripts": {
