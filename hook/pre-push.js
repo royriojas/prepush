@@ -246,8 +246,14 @@ var confirmToProceed = function ( isDirty, onDirtyState, dirtyState ) {
   return Promise.resolve();
 };
 
-var main = function ( /*args*/ ) {
+var main = function ( args ) {
   //log.log( args );
+  var willBeDeleted = args;
+
+  if ( willBeDeleted ) {
+    log.ok( '>> Prepush check skipped. Branch will be deleted ');
+    return;
+  }
 
   log.log( '>> prepush hook start' );
 
@@ -330,5 +336,8 @@ stdin.on( 'data', function reader( data ) {
     log.log( '>> nothing to verify' );
     return;
   }
-  main();
+
+  var willBeDeleted = data.substring(0, 8) === "(delete)";
+
+  main( willBeDeleted );
 } );
