@@ -1,5 +1,14 @@
 
 # prepush - Changelog
+## v3.1.9
+- **Cosmetic fixes**
+  - Beautify code - [0d6a2b6]( https://github.com/royriojas/prepush/commit/0d6a2b6 ), [Roy Riojas](https://github.com/Roy Riojas), 06/04/2016 12:20:08
+
+    
+- **Other changes**
+  - Don't run the pre-push hooks on a branch that will be deleted - [dca0dd7]( https://github.com/royriojas/prepush/commit/dca0dd7 ), [Diana Dumbravean](https://github.com/Diana Dumbravean), 05/04/2016 13:00:07
+
+    
 ## v3.1.8
 - **Bug Fixes**
   - correctly create the pre-push file. Fixes [#5](https://github.com/royriojas/prepush/issues/5) - [879bfa2]( https://github.com/royriojas/prepush/commit/879bfa2 ), [royriojas](https://github.com/royriojas), 01/02/2016 18:30:37
