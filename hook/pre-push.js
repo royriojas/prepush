@@ -420,6 +420,8 @@ stdin.on( 'data', function reader( data ) {
     log.log( '>> nothing to verify' );
     return;
   }
+  var willBeDeleted = data.substring(0, 8) === "(delete)";
+  
   // check if can be applied to the given branch
   doExec( 'git name-rev --name-only HEAD', function ( err, stdout /*, stderr*/ ) {
     if ( err ) {
@@ -435,6 +437,11 @@ stdin.on( 'data', function reader( data ) {
 
     if ( ignoreBranchFn( stdout ) ) {
       console.log( 'ignore prepush on branch ', stdout );
+      return;
+    }
+
+    if ( willBeDeleted ) {
+      console.log( 'prepush check skipped because the remote branch will be deleted');
       return;
     }
 
