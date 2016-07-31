@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.11
+- **Bug Fixes**
+  - regression when upgrading read-file - [a932b93]( https://github.com/royriojas/prepush/commit/a932b93 ), [Roy Riojas](https://github.com/Roy Riojas), 31/07/2016 05:09:45
+
+    
 ## v3.1.10
 - **Build Scripts Changes**
   - update packages to prevent issues with deprecated packages - [4a59181]( https://github.com/royriojas/prepush/commit/4a59181 ), [Roy Riojas](https://github.com/Roy Riojas), 31/07/2016 04:32:52
