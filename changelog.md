@@ -1,5 +1,10 @@
 
 # prepush - Changelog
+## v3.1.10
+- **Build Scripts Changes**
+  - update packages to prevent issues with deprecated packages - [4a59181]( https://github.com/royriojas/prepush/commit/4a59181 ), [Roy Riojas](https://github.com/Roy Riojas), 31/07/2016 04:32:52
+
+    
 ## v3.1.9
 - **Cosmetic fixes**
   - Beautify code - [0d6a2b6]( https://github.com/royriojas/prepush/commit/0d6a2b6 ), [Roy Riojas](https://github.com/Roy Riojas), 06/04/2016 12:20:08
