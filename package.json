@@ -14,7 +14,6 @@
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run check && npm test",
     "changelog": "changelogx -f markdown -o ./changelog.md",
-    "bump": "bumpery --versionType=patch --verify='npm run check'",
     "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
     "install-hooks": "./bin/cli.js install && changelogx install-hook && precommit install",
     "pre-v": "npm run check && npm test",
@@ -47,23 +46,21 @@
   "license": "MIT",
   "author": "Roy Riojas (http://royriojas.com)",
   "devDependencies": {
-    "bumpery": "^1.1.1",
-    "changelogx": "^1.0.15",
+    "changelogx": "^2.0.1",
     "esbeautifier": "^3.2.0",
     "eslinter": "^2.0.6",
     "istanbul": "^0.3.17",
     "mocha-runner": "^1.0.8",
-    "precommit": "^1.0.1",
+    "precommit": "^1.2.1",
     "proxyquire": "^1.6.0",
-    "watch-spawn": "^1.0.3"
+    "watch-spawn": "^2.0.0"
   },
   "dependencies": {
-    "clix": "^2.0.3",
+    "clix": "^2.0.16",
     "del": "^1.2.0",
-    "es6-promise": "^2.3.0",
+    "es6-promise": "^3.2.1",
     "git-toplevel": "^1.1.0",
-    "read-file": "^0.1.2",
-    "read-json-sync": "^1.1.0",
+    "read-file": "^0.2.0",
     "stringformat": "0.0.5",
     "write": "^0.1.1"
   },
