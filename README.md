@@ -45,16 +45,19 @@ or as an object in a `custom.json` file or in `package.json` add the following s
 
 ```javascript
 {
-  "prepush" : {
+  "prepush": {
     // the tasks to run
-    "tasks" : [ "grunt prepush" ],
+    "tasks": [ "grunt prepush" ],
     // What to do in case of a dirty state
     // ask   => Show a prompt to the user to decide what to do, stash or fail.
     // fail  => Simply refuse to push something when you have uncommited/untracked files
     // stash => If there are uncommited/untracked files stash them, do the push and restore the stash
     //          This will also move untracked files into the stash
     "onDirtyState": "ask", // <== fail or stash,
-    "coloredOuput" : true // <== true or false. If ommited it will try to use the env variable `__CLIX_COLORED_OUTPUT__` (from `clix` module)
+    "coloredOuput": true, // <== true or false. If ommited it will try to use the env variable `__CLIX_COLORED_OUTPUT__` (from `clix` module)
+    "ignoreBranch": ["test", "test2"], // <== string or array of strings: the branches the hook should not run on
+    "applyToBranch": ["master", "development"] // <== string or array of strings: the branches the hook should protect
+    // note that ignoreBranch is applied before applyToBranch, so a branch with its name in both will be ignored by the hook
   }
 }
 ```
