@@ -54,7 +54,7 @@ or as an object in a `custom.json` file or in `package.json` add the following s
     // stash => If there are uncommited/untracked files stash them, do the push and restore the stash
     //          This will also move untracked files into the stash
     "onDirtyState": "ask", // <== fail or stash,
-    "coloredOuput": true, // <== true or false. If ommited it will try to use the env variable `__CLIX_COLORED_OUTPUT__` (from `clix` module)
+    "coloredOutput": true, // <== true or false. If ommited it will try to use the env variable `__CLIX_COLORED_OUTPUT__` (from `clix` module)
     "ignoreBranch": ["test", "test2"], // <== string or array of strings: the branches the hook should not run on
     "applyToBranch": ["master", "development"] // <== string or array of strings: the branches the hook should protect
     // note that ignoreBranch is applied before applyToBranch, so a branch with its name in both will be ignored by the hook
@@ -97,7 +97,7 @@ If you want to enable the colored logs in the actual prepush hook, please includ
     // the tasks to run
     "tasks" : [ "grunt prepush" ],
     "onDirtyState": "ask",
-    "coloredOuput" : true // or false
+    "coloredOutput" : true // or false
   }
 }
 ```

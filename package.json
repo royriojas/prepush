@@ -23,14 +23,14 @@
     "bump-patch": "npm run pre-v && npm version patch -m 'BLD: Release v%s' && npm run post-v"
   },
   "prepush": {
-    "coloredOuput": true,
+    "coloredOutput": true,
     "tasks": [
       "npm run prepush --silent"
     ],
     "onDirtyState": "ask"
   },
   "precommit": {
-    "coloredOuput": true,
+    "coloredOutput": true,
     "tasks": [
       "npm run prepush --silent"
     ],
