@@ -20,7 +20,9 @@
     "post-v": "npm run do-changelog && git push --no-verify && git push --tags --no-verify",
     "bump-major": "npm run pre-v && npm version major -m 'BLD: Release v%s' && npm run post-v",
     "bump-minor": "npm run pre-v && npm version minor -m 'BLD: Release v%s' && npm run post-v",
-    "bump-patch": "npm run pre-v && npm version patch -m 'BLD: Release v%s' && npm run post-v"
+    "bump-patch": "npm run pre-v && npm version patch -m 'BLD: Release v%s' && npm run post-v",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "prepush": {
     "coloredOutput": true,
@@ -62,7 +64,8 @@
     "git-toplevel": "^1.1.0",
     "read-file": "^0.2.0",
     "stringformat": "0.0.5",
-    "write": "^0.1.1"
+    "write": "^0.1.1",
+    "snyk": "^1.105.0"
   },
   "bugs": {
     "url": "https://github.com/royriojas/prepush/issues"
@@ -77,5 +80,6 @@
     "enforce",
     "git",
     "workflow"
-  ]
+  ],
+  "snyk": true
 }
