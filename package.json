@@ -62,7 +62,7 @@
     "git-toplevel": "^1.1.0",
     "read-file": "^0.2.0",
     "stringformat": "0.0.5",
-    "write": "^0.1.1"
+    "write": "^2.0.0"
   },
   "bugs": {
     "url": "https://github.com/royriojas/prepush/issues"
