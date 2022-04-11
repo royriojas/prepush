@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "clix": "^2.0.16",
-    "del": "^1.2.0",
+    "del": "^2.0.0",
     "es6-promise": "^3.2.1",
     "git-toplevel": "^1.1.0",
     "read-file": "^0.2.0",
